@@ -1,6 +1,6 @@
 .Footer {
     background-color: #fff;
-    height: 4vh;
+    height: 5vh;
     display: flex;
     justify-content: flex-end;
     align-items: center;
@@ -9,5 +9,5 @@
 
 .footer-emoji {
     font-size: 1rem;
-    margin: 0 1rem;
+    margin: 0 .5rem;
 }
