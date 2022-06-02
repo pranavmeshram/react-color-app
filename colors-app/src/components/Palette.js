@@ -24,11 +24,20 @@ export default class Palette extends Component {
     }
 
     render() {
-        const { colors, palleteName, emoji } = this.props.palette;
+        const { colors, palleteName, emoji, id } = this.props.palette;
         const { level, format } = this.state;
 
         const colorBoxes = colors[level].map(color => (
-            <ColorBox background={color[format]} name={color.name} key={color.id} />
+            <ColorBox
+                background={color[format]}
+                name={color.name}
+                key={color.id}
+
+                // id={color.id}            // we could pass individual attributes and construct url in the link tag
+                // paletteId={id}
+
+                moreUrl={`/palette/${id}/${color.id}`}   // or we can simiply pass the constructed url in props
+            />
         ));
 
         return (
