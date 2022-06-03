@@ -8,6 +8,7 @@
     margin-bottom: -4.5px;
 }
 
+.back-button,
 .copy-button {
     width: 100px;
     height: 30px;
@@ -25,6 +26,10 @@
     color: white;
     text-transform: uppercase;
     border: none;
+    text-decoration: none;
+}
+
+.copy-button {
     opacity: 0;
 }
 
@@ -37,12 +42,16 @@
     position: absolute;
     width: 100%;
     left: 0px;
-    bottom: 0px;
-    padding: .5rem;
+    bottom: 10px;
+    /* padding: .5rem; */
     color: black;
     letter-spacing: 1px;
     text-transform: uppercase;
     font-size: 12px;    
+}
+
+.box-content span{
+    padding: 0 10px;
 }
 
 .see-more {
@@ -111,4 +120,14 @@
 .copy-msg p {
     font-size: 2rem;
     font-weight: 100;
+}
+
+
+.SingleColorPalette .ColorBox {
+    height: 50%;
+}
+
+.Palette-go-back {
+    background-color: black;
+
 }
