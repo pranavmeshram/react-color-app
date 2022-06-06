@@ -37,7 +37,7 @@ export default class Palette extends Component {
                 // paletteId={id}
 
                 moreUrl={`/palette/${id}/${color.id}`}   // or we can simiply pass the constructed url in props
-                showLink={true}
+                showingFullPalette={true}
             />
         ));
 
