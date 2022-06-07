@@ -14,7 +14,7 @@ const styles = {
         display: "inline-block",
         position: "relative",
         cursor: "pointer",
-        marginBottom: "-3.5px",
+        marginBottom: "-4.5px",
         "&:hover button": {
             opacity: 1
         }
@@ -23,10 +23,11 @@ const styles = {
         color: props => chroma(props.background).luminance() >= 0.6 ? "black" : "white"
     },
     colorName: {
-        color: props => chroma(props.background).luminance() <= 0.19 ? "white" : "black"
+        color: props => chroma(props.background).luminance() <= 0.19 ? "white" : "black",
+        padding: "0 10px"
     },
     seeMore: {
-        color: props => chroma(props.background).luminance() >= 0.6 ? "rgba(0, 0, 0, 0.7)" : "white",
+        color: props => chroma(props.background).luminance() >= 0.6 ? "rgba(0, 0, 0, 0.6)" : "white",
         background: "rgba(255, 255, 255, 0.3)",
         position: "absolute",
         border: "none",
@@ -60,6 +61,68 @@ const styles = {
         border: "none",
         textDecoration: "none",
         opacity: 0
+    },
+    boxContent: {
+        position: "absolute",
+        width: "100%",
+        left: "0px",
+        bottom: "0px",
+        color: "black",
+        letterSpacing: "1px",
+        textTransform: "uppercase",
+        fontSize: "12px"
+    },
+    copyOverlay: {
+        opacity: "0",
+        zIndex: "0",
+        width: "100%",
+        height: "100%",
+        transition: "transform 0.6s ease-in-out",
+        transform: "scale(0.1)",
+
+    },
+    showOverlay: {
+        opacity: "1",
+        zIndex: "10",
+        position: "absolute",
+        transform: "scale(50)",
+
+    },
+    copyMessage: {
+        position: "fixed",
+        left: "0",
+        right: "0",
+        top: "0",
+        bottom: "0",
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+        flexDirection: "column",
+        fontSize: "4rem",
+        transform: "scale(0.1)",
+        opacity: "0",
+        color: "white",
+        "& h1": {
+            fontWeight: "400",
+            textShadow: "1px 2px black",
+            background: "rgba(255, 255, 255, 0.2)",
+            width: "100%",
+            textAlign: "center",
+            marginBottom: "0",
+            padding: "1rem",
+            textTransform: "uppercase"
+        },
+        "& p": {
+            fontSize: "2rem",
+            fontWeight: "100"
+        }
+    },
+    showMessage: {
+        opacity: "1",
+        transform: "scale(1)",
+        zIndex: "25",
+        transition: "all 0.4s ease-in-out",
+        transitionDelay: "0.3s"
     }
 };
 
@@ -79,43 +142,40 @@ class ColorBox extends Component {
     }
 
     render() {
-        const { name, background, paletteId, id, moreUrl, showingFullPalette, classes } = this.props;
+        const { name, background, moreUrl, showingFullPalette, classes } = this.props;
         const { copied } = this.state;
-        const isDarkColor = chroma(background).luminance() <= 0.19;
-        const isLightkColor = chroma(background).luminance() >= 0.6;
 
         return (
             <CopyToClipboard text={background} onCopy={this.changeCopyState}>
 
                 <div style={{ background: background }} className={classes.ColorBox}>
 
-                    <div style={{ background: background }} className={`copy-overlay ${copied && "show"}`} />
+                    <div
+                        style={{ background: background }}
+                        className={`${classes.copyOverlay} ${copied && classes.showOverlay}`}
+                    />
 
-                    <div className={`copy-msg ${copied && "show"}`}>
-                        <h1>copied!</h1>
-                        {/* <p className={isLightkColor ? "dark-text-color" : ""}> */}
+                    <div className={`${classes.copyMessage} ${copied && classes.showMessage}`}>
+                        <h1 className={classes.copyText}>copied!</h1>
                         <p className={classes.copyText}>
                             {background}
                         </p>
                     </div>
 
-                    <div className="copy-container">
+                    <div>
 
-                        <div className="box-content">
-                            {/* <span className={`color-box-text-color ${isDarkColor && "light-text-color"}`}> */}
-                            <span className={`color-box-color-name ${classes.colorName}`}>
+                        <div className={classes.boxContent}>
+                            <span className={classes.colorName}>
                                 {name}
                             </span>
                         </div>
 
-                        {/* <button className={`copy-button ${isLightkColor && "dark-text-color"}`}> */}
                         <button className={classes.copyButton}>
                             Copy
                         </button>
                     </div>
                     {showingFullPalette && (
                         <Link to={moreUrl} onClick={e => e.stopPropagation()}>
-                            {/* <span className={`see-more ${isLightkColor && "dark-text-color"}`}>MORE</span> */}
                             <span className={classes.seeMore}>MORE</span>
                         </Link>
                     )}
